@@ -1,47 +1,32 @@
-# MLOps-Ecommerce-DemandSpikePrediction
-Project Overview
-Proyek ini bertujuan untuk membangun sistem machine learning yang dapat memprediksi lonjakan permintaan produk pada platform e-commerce. Sistem dirancang menggunakan pendekatan MLOps sehingga model dapat diperbarui secara berkala ketika terjadi perubahan distribusi data.
+# MLOps Ecommerce Demand Spike Prediction
 
-Dataset yang digunakan adalah Online Retail Dataset dari UCI Machine Learning Repository yang berisi lebih dari 500.000 transaksi.
+## Deskripsi Proyek
+Proyek ini bertujuan untuk mengimplementasikan pipeline data ingestion dan preprocessing dalam konteks Machine Learning Operations (MLOps).
 
-Machine learning task yang digunakan adalah binary classification:
-- 0 = tidak terjadi lonjakan permintaan
-- 1 = terjadi lonjakan permintaan
+Dataset yang digunakan adalah **Online Retail Dataset**, yang diperlakukan sebagai data dinamis melalui mekanisme **weekly ingestion** berdasarkan kolom `InvoiceDate`.
 
-Model digunakan sebagai early warning system untuk membantu tim operasional dalam perencanaan stok dan manajemen supply chain.
+Pipeline ini dirancang untuk mendukung konsep **Continual Learning**, di mana data terus bertambah dan diproses secara bertahap.
 
-## Repository Structure
+---
 
-data/
-- raw : data mentah
-- processed : data hasil preprocessing
-
-models/
-- penyimpanan model hasil training
-
-notebooks/
-- eksperimen dan exploratory data analysis
-
-src/
-- kode training dan inference model
-
-config/
-- konfigurasi pipeline machine learning
-
-.devcontainer/
-- konfigurasi GitHub Codespaces environment
-
-## Running the Project with GitHub Codespaces
-
-1. Buka repository ini di GitHub
-2. Klik tombol **Code**
-3. Pilih tab **Codespaces**
-4. Klik **Create codespace on main**
-
-Environment akan otomatis menyiapkan Python environment dan menginstall dependency dari file `requirements.txt`.
-
-## Branching Strategy
-
-Proyek ini menggunakan **GitHub Flow**.
-
-Eksperimen awal dilakukan pada branch:
+## Struktur Folder
+```bash
+.
+├── data
+│   ├── source
+│   │   └── Online Retail.csv
+│   ├── raw
+│   │   ├── raw_week_01.csv
+│   │   ├── raw_week_02.csv
+│   │   └── raw_week_03.csv
+│   └── processed
+│       ├── clean_week_01.csv
+│       ├── clean_week_02.csv
+│       └── clean_week_03.csv
+├── src
+│   ├── ingest_data.py
+│   ├── preprocess.py
+│   ├── train.py
+│   └── predict.py
+├── requirements.txt
+└── README.md
