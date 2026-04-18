@@ -1,32 +1,19 @@
-# MLOps Ecommerce Demand Spike Prediction
+## Data Versioning (DVC)
 
-## Deskripsi Proyek
-Proyek ini bertujuan untuk mengimplementasikan pipeline data ingestion dan preprocessing dalam konteks Machine Learning Operations (MLOps).
+Proyek ini menggunakan DVC untuk melacak perubahan dataset tanpa membebani repositori Git.
 
-Dataset yang digunakan adalah **Online Retail Dataset**, yang diperlakukan sebagai data dinamis melalui mekanisme **weekly ingestion** berdasarkan kolom `InvoiceDate`.
+### Alur Versioning Data
+1. Inisialisasi DVC menggunakan `dvc init`
+2. Tracking dataset awal menggunakan `dvc add`
+3. Menjalankan ingestion untuk menghasilkan data baru
+4. Tracking dataset baru dengan `dvc add`
+5. Melihat perubahan versi menggunakan `dvc diff`
 
-Pipeline ini dirancang untuk mendukung konsep **Continual Learning**, di mana data terus bertambah dan diproses secara bertahap.
-
----
-
-## Struktur Folder
+### Contoh Perintah
 ```bash
-.
-├── data
-│   ├── source
-│   │   └── Online Retail.csv
-│   ├── raw
-│   │   ├── raw_week_01.csv
-│   │   ├── raw_week_02.csv
-│   │   └── raw_week_03.csv
-│   └── processed
-│       ├── clean_week_01.csv
-│       ├── clean_week_02.csv
-│       └── clean_week_03.csv
-├── src
-│   ├── ingest_data.py
-│   ├── preprocess.py
-│   ├── train.py
-│   └── predict.py
-├── requirements.txt
-└── README.md
+dvc add data/raw/raw_week_03.csv
+python src/ingest_data.py
+dvc add data/raw/raw_week_04.csv
+dvc diff HEAD~1 HEAD
+
+
