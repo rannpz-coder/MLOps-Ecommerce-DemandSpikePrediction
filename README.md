@@ -1,19 +1,11 @@
-## Data Versioning (DVC)
+## Active Model
 
-Proyek ini menggunakan DVC untuk melacak perubahan dataset tanpa membebani repositori Git.
+Model yang digunakan untuk inferensi saat ini adalah:
 
-### Alur Versioning Data
-1. Inisialisasi DVC menggunakan `dvc init`
-2. Tracking dataset awal menggunakan `dvc add`
-3. Menjalankan ingestion untuk menghasilkan data baru
-4. Tracking dataset baru dengan `dvc add`
-5. Melihat perubahan versi menggunakan `dvc diff`
+- Nama: demand_prediction_model  
+- Versi: v3  
+- Stage: Production  
 
-### Contoh Perintah
-```bash
-dvc add data/raw/raw_week_03.csv
-python src/ingest_data.py
-dvc add data/raw/raw_week_04.csv
-dvc diff HEAD~1 HEAD
+### Alasan Pemilihan
 
-
+Model ini dipilih karena memiliki performa terbaik berdasarkan hasil eksperimen (Accuracy dan F1-score) dibandingkan versi sebelumnya. Selain itu, model telah melalui tahap Staging dan dinyatakan siap digunakan pada tahap Production.
