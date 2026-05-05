@@ -1,0 +1,5 @@
+outs:
+- md5: ffd9483d5083a9ecceda255842dd9045
+  size: 108948
+  hash: md5
+  path: raw_week_04.csv
