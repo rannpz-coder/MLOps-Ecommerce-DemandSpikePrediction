@@ -1,0 +1,45 @@
+services:
+  mlflow-server:
+    image: python:3.12-slim
+    container_name: mlflow-server
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: >
+      bash -c "
+      pip install mlflow &&
+      mlflow server
+      --backend-store-uri sqlite:///mlflow.db
+      --default-artifact-root /app/mlruns
+      --host 0.0.0.0
+      --port 5000
+      --allowed-hosts '*'
+      "
+    ports:
+      - "5000:5000"
+    networks:
+      - mlops-network
+
+  inference-api:
+    image: python:3.12-slim
+    container_name: inference-api
+    working_dir: /app
+    volumes:
+      - ./:/app
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow-server:5000
+    command: >
+      bash -c "
+      pip install fastapi uvicorn mlflow pandas scikit-learn &&
+      python src/inference.py
+      "
+    depends_on:
+      - mlflow-server
+    ports:
+      - "8000:8000"
+    networks:
+      - mlops-network
+
+networks:
+  mlops-network:
+    driver: bridge
